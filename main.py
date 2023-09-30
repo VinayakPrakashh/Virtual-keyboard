@@ -1,9 +1,10 @@
 import cv2
 from cvzone.HandTrackingModule import HandDetector
+from time import sleep
 cap = cv2.VideoCapture(0)
 cap.set(3, 1288)
 cap.set(4, 720)
-
+finalText = ""
 detector = HandDetector(detectionCon=0)
 keys = [["Q","W","E","R","T","Y","U","I","Q","P"],
         ["A","S","D","F","G","H","J","K","L",";"],
@@ -49,11 +50,14 @@ while True:
                    cv2.putText(img,button.text,(x+21,y+ 65),cv2.FONT_HERSHEY_PLAIN,4,(255,255,255),4)
                    l,_,_ = detector.findDistance(8,12,img,draw=False)
                    print(l)
-
+                   
                    if l<38:
                          
                          cv2.rectangle(img,button.pos,(x + w,y + h),(0,255,0),cv2.FILLED)
                          cv2.putText(img,button.text,(x+21,y+ 65),cv2.FONT_HERSHEY_PLAIN,4,(255,255,255),4)
-
+                         finalText += button.text
+                         sleep(0.15)
+    cv2.rectangle(img,(58,358),(788,458),(175,0,175),cv2.FILLED)
+    cv2.putText(img,finalText,(68,425),cv2.FONT_HERSHEY_PLAIN,5,(255,255,255),5)
     cv2.imshow("Image", img)
     cv2.waitKey(1)
