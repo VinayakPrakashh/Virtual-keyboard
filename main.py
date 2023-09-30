@@ -1,7 +1,8 @@
 import cv2
+from pynput.keyboard import Key,Controller
 from cvzone.HandTrackingModule import HandDetector
 from time import sleep
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0) 
 cap.set(3, 1288)
 cap.set(4, 720)
 finalText = ""
@@ -9,6 +10,7 @@ detector = HandDetector(detectionCon=0)
 keys = [["Q","W","E","R","T","Y","U","I","Q","P"],
         ["A","S","D","F","G","H","J","K","L",";"],
         ["Z","X","C","V","B","N","M",",",".","/"]]
+Keyboard = Controller()
 
 def drawAll(img,ButtonList):
         
@@ -52,7 +54,7 @@ while True:
                    print(l)
                    
                    if l<38:
-                         
+                         Keyboard.press(button.text)
                          cv2.rectangle(img,button.pos,(x + w,y + h),(0,255,0),cv2.FILLED)
                          cv2.putText(img,button.text,(x+21,y+ 65),cv2.FONT_HERSHEY_PLAIN,4,(255,255,255),4)
                          finalText += button.text
